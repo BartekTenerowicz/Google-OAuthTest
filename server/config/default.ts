@@ -28,7 +28,7 @@ rPeH03CIhIoh6QPPg02GKC3VumQxgwOe2wkQ2OgHYLE=
 -----END RSA PRIVATE KEY-----`,
 
   googleClientId:
-    "308553191168-fn8v0kqgqphm1uh55irhaqhj15pke8vp.apps.googleusercontent.com",
-  googleClientSecret: "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",
+    "51563431689-vufns19a9gtbu5ljk4mpogu2fghlpdec.apps.googleusercontent.com",
+  googleClientSecret: "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",
   googleOauthRedirectUrl: "http://localhost:1337/api/sessions/oauth/google",
 };
