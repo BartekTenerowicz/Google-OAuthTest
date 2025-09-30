@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"C:\\Users\\barto\\Downloads\\newSubscriptionsTest\\Google-OAuthTest\\ui\")",
+      "Bash(dir \"C:\\Users\\barto\\Downloads\\newSubscriptionsTest\\Google-OAuthTest\\ui\\pages\")",
+      "Bash(yarn add:*)",
+      "Bash(npx tailwindcss init:*)",
+      "Bash(dir \"C:\\Users\\barto\\Downloads\\newSubscriptionsTest\\Google-OAuthTest\\reference\")",
+      "Bash(yarn remove:*)",
+      "Bash(find:*)",
+      "Bash(dir:*)",
+      "Bash(npm run dev:*)",
+      "Bash(taskkill:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(yarn dev)",
+      "Bash(mongosh:*)",
+      "Bash(powershell \"Get-Service | Where-Object {$_Name -like ''*mongo*''}\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -75,6 +75,21 @@ export async function deleteSessionHandler(req: Request, res: Response) {
 
   await updateSession({ _id: sessionId }, { valid: false });
 
+  // Clear cookies
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    domain: "localhost",
+    path: "/",
+    sameSite: "lax",
+  });
+
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    domain: "localhost",
+    path: "/",
+    sameSite: "lax",
+  });
+
   return res.send({
     accessToken: null,
     refreshToken: null,
