@@ -102,8 +102,8 @@ export async function googleOauthHandler(req: Request, res: Response) {
 
   try {
     // get the id and access token with the code
-    const { id_token, access_token } = await getGoogleOAuthTokens({ code });
-    console.log({ id_token, access_token });
+    const { id_token, access_token, refresh_token } = await getGoogleOAuthTokens({ code });
+    console.log({ id_token, access_token, refresh_token });
 
     // get user with tokens
     const googleUser = await getGoogleUser({ id_token, access_token });
@@ -115,7 +115,7 @@ export async function googleOauthHandler(req: Request, res: Response) {
       return res.status(403).send("Google account is not verified");
     }
 
-    // upsert the user
+    // upsert the user with Google tokens
     const user = await findAndUpdateUser(
       {
         email: googleUser.email,
@@ -124,6 +124,8 @@ export async function googleOauthHandler(req: Request, res: Response) {
         email: googleUser.email,
         name: googleUser.name,
         picture: googleUser.picture,
+        googleAccessToken: access_token,
+        googleRefreshToken: refresh_token,
       },
       {
         upsert: true,

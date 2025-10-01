@@ -21,6 +21,7 @@ import {
   deleteSubscriptionHandler,
   getUserSubscriptionsHandler,
 } from "./controller/subscription.controller";
+import { sendGmailHandler } from "./controller/email.controller";
 import requireUser from "./middleware/requireUser";
 import validateResource from "./middleware/validateResource";
 import {
@@ -37,6 +38,7 @@ import {
   getSubscriptionSchema,
   deleteSubscriptionSchema,
 } from "./schema/subscription.schema";
+import { sendEmailSchema } from "./schema/email.schema";
 
 function routes(app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
@@ -82,6 +84,13 @@ function routes(app: Express) {
     "/api/subscriptions/:subscriptionId",
     [requireUser, validateResource(deleteSubscriptionSchema)],
     deleteSubscriptionHandler
+  );
+
+  // Email routes
+  app.post(
+    "/api/email/send",
+    [requireUser, validateResource(sendEmailSchema)],
+    sendGmailHandler
   );
 
   app.post(

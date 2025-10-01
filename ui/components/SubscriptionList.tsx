@@ -15,6 +15,7 @@ import {
   Eye,
   Loader2,
 } from "lucide-react";
+import EmailComposeModal from "./EmailComposeModal";
 
 interface Subscription {
   _id: string;
@@ -43,6 +44,8 @@ const SubscriptionList = ({ onAddNew, onEditSubscription, refreshTrigger }: Subs
   const [selectedSubscription, setSelectedSubscription] = useState<Subscription | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
+  const [emailModalOpen, setEmailModalOpen] = useState(false);
+  const [subscriptionToCancel, setSubscriptionToCancel] = useState<Subscription | null>(null);
 
   useEffect(() => {
     fetchSubscriptions();
@@ -151,9 +154,8 @@ const SubscriptionList = ({ onAddNew, onEditSubscription, refreshTrigger }: Subs
 
   const handleCancelSubscription = (subscription: Subscription) => {
     setDropdownOpen(null);
-    if (confirm(`Are you sure you want to delete the ${subscription.name} subscription?`)) {
-      handleDeleteSubscription(subscription._id);
-    }
+    setSubscriptionToCancel(subscription);
+    setEmailModalOpen(true);
   };
 
   const totalMonthlyAmount = subscriptions.reduce((sum, sub) => {
@@ -482,6 +484,19 @@ const SubscriptionList = ({ onAddNew, onEditSubscription, refreshTrigger }: Subs
             </div>
           </div>
         </div>
+      )}
+
+      {/* Email Compose Modal */}
+      {subscriptionToCancel && (
+        <EmailComposeModal
+          isOpen={emailModalOpen}
+          onClose={() => {
+            setEmailModalOpen(false);
+            setSubscriptionToCancel(null);
+          }}
+          subscriptionName={subscriptionToCancel.name}
+          vendorEmail={subscriptionToCancel.vendor_website}
+        />
       )}
     </div>
   );

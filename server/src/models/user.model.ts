@@ -7,6 +7,8 @@ export interface UserDocument extends mongoose.Document {
   name: string;
   password: string;
   picture: string;
+  googleAccessToken?: string;
+  googleRefreshToken?: string;
   createdAt: Date;
   updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<Boolean>;
@@ -18,6 +20,8 @@ const userSchema = new mongoose.Schema(
     name: { type: String, required: true },
     picture: { type: String },
     password: { type: String, required: true },
+    googleAccessToken: { type: String },
+    googleRefreshToken: { type: String },
   },
   {
     timestamps: true,
